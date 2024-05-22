@@ -17,6 +17,7 @@ function App() {
   const [results, setResults] = useState<{ round: number; score: number }[]>([]);
   const [showAnswer, setShowAnswer] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState<string | null>(null);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
     startNewRound(); // Initialize the first round
@@ -43,10 +44,11 @@ function App() {
     setCapital2(undefined); // Reset single selection
     setShowAnswer(false); // Hide the answer for the new round
     setCorrectAnswer(null); // Reset correct answer for the new round
+    setIsDisabled(false); // Re-enable selections for the new round
   }
 
   function handleCheck() {
-    if (gameOver) return; // Prevent further actions if the game is over
+    if (gameOver || isDisabled) return; // Prevent further actions if the game is over or the round is finished
 
     let roundScore = 0;
     if (isSingleActive) {
@@ -68,6 +70,7 @@ function App() {
     setResults([...results, { round, score: roundScore }]); // Store the result for the round
     setCorrectAnswer(asked?.capital); // Set the correct answer
     setShowAnswer(true); // Show the correct answer
+    setIsDisabled(true); // Disable further selections
 
     if (round < 5) { 
       setRound(round + 1); // Move to the next round
@@ -96,10 +99,12 @@ function App() {
         asked={capital1}
         choiceGroup={choiceGroup}
         onChange={(o) => {
-          setCapital1(o);
-          setCapital2(undefined); // Clear single selection
-          setIsSingleActive(false);
-          console.log(o);
+          if (!isDisabled) {
+            setCapital1(o);
+            setCapital2(undefined); // Clear single selection
+            setIsSingleActive(false);
+            console.log(o);
+          }
         }}
         options={options}
       />
@@ -109,15 +114,17 @@ function App() {
         asked={capital2}
         choiceGroup={choiceGroup}
         onChange={(o) => {
-          setCapital2(o);
-          setCapital1([]); // Clear multiple selection
-          setIsSingleActive(true);
-          console.log(o);
+          if (!isDisabled) {
+            setCapital2(o);
+            setCapital1([]); // Clear multiple selection
+            setIsSingleActive(true);
+            console.log(o);
+          }
         }}
         options={options}
       />
 
-      <button onClick={handleCheck} disabled={gameOver}>Check</button> {/* Disable button when game is over */}
+      <button onClick={handleCheck} disabled={gameOver || isDisabled}>Check</button> {/* Disable button when game is over or round is finished */}
       <h3>Score: {score}</h3>
       <h4>Round: {round}/5</h4>
 
