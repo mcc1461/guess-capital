@@ -15,7 +15,8 @@ function App() {
   const [gameOver, setGameOver] = useState(false);
   const [gameOverMessage, setGameOverMessage] = useState("");
   const [results, setResults] = useState<{ round: number; score: number }[]>([]);
-
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [correctAnswer, setCorrectAnswer] = useState<string | null>(null);
 
   useEffect(() => {
     startNewRound(); // Initialize the first round
@@ -40,8 +41,9 @@ function App() {
     );
     setCapital1([]); // Reset multiple selection
     setCapital2(undefined); // Reset single selection
+    setShowAnswer(false); // Hide the answer for the new round
+    setCorrectAnswer(null); // Reset correct answer for the new round
   }
-  
 
   function handleCheck() {
     if (gameOver) return; // Prevent further actions if the game is over
@@ -64,10 +66,11 @@ function App() {
 
     setScore((prevScore) => prevScore + roundScore); // Correctly update score
     setResults([...results, { round, score: roundScore }]); // Store the result for the round
+    setCorrectAnswer(asked?.capital); // Set the correct answer
+    setShowAnswer(true); // Show the correct answer
 
     if (round < 5) { 
       setRound(round + 1); // Move to the next round
-      startNewRound(); // Initialize new round
     } else {
       setGameOver(true); // End the game
       setGameOverMessage("Game Over!");
@@ -94,7 +97,7 @@ function App() {
         choiceGroup={choiceGroup}
         onChange={(o) => {
           setCapital1(o);
-          setCapital2(undefined); // Reset single selection
+          setCapital2(undefined); // Clear single selection
           setIsSingleActive(false);
           console.log(o);
         }}
@@ -107,7 +110,7 @@ function App() {
         choiceGroup={choiceGroup}
         onChange={(o) => {
           setCapital2(o);
-          setCapital1([]); // Reset multiple selection
+          setCapital1([]); // Clear multiple selection
           setIsSingleActive(true);
           console.log(o);
         }}
@@ -117,6 +120,13 @@ function App() {
       <button onClick={handleCheck} disabled={gameOver}>Check</button> {/* Disable button when game is over */}
       <h3>Score: {score}</h3>
       <h4>Round: {round}/5</h4>
+
+      {showAnswer && (
+        <div>
+          <h3>The correct capital was: {correctAnswer}</h3>
+          <button onClick={startNewRound} disabled={gameOver}>Next Round</button>
+        </div>
+      )}
 
       {gameOver && (
         <div>
