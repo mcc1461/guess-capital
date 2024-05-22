@@ -254,6 +254,6 @@ root {
 }
 
 .placeholder {
-  color: gray;
+  color: salmon !important;
   font-style: italic;
 }

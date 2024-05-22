@@ -14,16 +14,26 @@ function App() {
   const [round, setRound] = useState(1);
   const [gameOver, setGameOver] = useState(false);
   const [gameOverMessage, setGameOverMessage] = useState("");
-  const [results, setResults] = useState<{ round: number; score: number }[]>([]);
+  const [results, setResults] = useState<{ round: number; score: number }[]>(
+    []
+  );
   const [showAnswer, setShowAnswer] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState<string | null>(null);
   const [isDisabled, setIsDisabled] = useState(false);
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
   useEffect(() => {
     startNewRound(); // Initialize the first round
   }, []);
 
   function startNewRound() {
+    if (round > 5) {
+      setGameOver(true);
+      setGameOverMessage("Game Over!");
+      return;
+    }
+    // setRound(round + 1); // Increment the round
+
     const randomNo = Math.floor(Math.random() * options.length);
     setAsked(options[randomNo]);
 
@@ -45,40 +55,55 @@ function App() {
     setShowAnswer(false); // Hide the answer for the new round
     setCorrectAnswer(null); // Reset correct answer for the new round
     setIsDisabled(false); // Re-enable selections for the new round
+    setAlertMessage(null); // Clear any alert messages
   }
 
   function handleCheck() {
     if (gameOver || isDisabled) return; // Prevent further actions if the game is over or the round is finished
 
     let roundScore = 0;
+
+    if (capital1.length === 0 && capital2 === undefined) {
+      setAlertMessage("Please select a method of selection.");
+      return;
+    }
+
+    if (!isSingleActive && capital1.length !== 2) {
+      setAlertMessage(
+        "Please select exactly 2 capitals for multiple selection."
+      );
+      return;
+    }
+
     if (isSingleActive) {
       if (capital2?.capital === asked?.capital) {
         roundScore = 100;
       }
     } else {
-      const correctAnswers = capital1.filter((c) => c.capital === asked?.capital);
-      if (correctAnswers.length === 1 && capital1.length === 1) {
-        roundScore = 100;
-      } else if (correctAnswers.length === 1 && capital1.length === 2) {
-        roundScore = 50;
-      } else if (correctAnswers.length === 1 && capital1.length === 3) {
-        roundScore = 20;
+      const correctAnswers = capital1.filter(
+        (c) => c.capital === asked?.capital
+      );
+      if (correctAnswers.length === 1 && capital1.length === 2) {
+        roundScore = 70;
       }
     }
+    {setRound(round + 1)}; // Increment the round
 
-    setScore((prevScore) => prevScore + roundScore); // Correctly update score
-    setResults([...results, { round, score: roundScore }]); // Store the result for the round
-    setCorrectAnswer(asked?.capital); // Set the correct answer
-    setShowAnswer(true); // Show the correct answer
-    setIsDisabled(true); // Disable further selections
+    setScore(score + roundScore);
+    setResults([...results, { round, score: roundScore }]);
+    setShowAnswer(true); // Show the answer
+    setCorrectAnswer(asked?.capital || null); // Set the correct answer
+    setIsDisabled(true); // Disable selections after checking
+    setAlertMessage(null); // Clear any alert messages
+  }
 
-    if (round < 5) { 
-      setRound(round + 1); // Move to the next round
-    } else {
-      setGameOver(true); // End the game
-      setGameOverMessage("Game Over!");
-      setIsSingleActive(false); // Disable further selections
-    }
+  function resetGame() {
+    setScore(0);
+    setRound(1);
+    setResults([]);
+    setGameOver(false);
+    setGameOverMessage("");
+    startNewRound();
   }
 
   if (!asked) {
@@ -91,9 +116,19 @@ function App() {
       <h3 className={styles["guess-text"]}>
         Find the capital of the following country...
       </h3>
+      <div className={styles.alerts}>
+        {alertMessage && <div className={styles.alert}>{alertMessage}</div>}
+      </div>
       <div className={styles["asked-country"]}>{asked.country}</div>
-
-      <h2 className={styles["mcc-multiple"]}>Multiple ~ Selection</h2>
+      <h3 className={styles["asked-capital-group"]}>
+        <span className={styles["answer-text"]}>Answer:</span>
+        {showAnswer && (
+          <span className={styles["answer-capital"]}>{correctAnswer}</span>
+        )}
+      </h3>
+      <h2 className={styles["mcc-multiple"]}>
+        Multiple ~ Selection <span className={styles.points}>(70 points)</span>
+      </h2>
       <Select
         multiple
         asked={capital1}
@@ -108,8 +143,9 @@ function App() {
         }}
         options={options}
       />
-
-      <h2 className={styles["mcc-single"]}>Single ~ Selection</h2>
+      <h2 className={styles["mcc-single"]}>
+        Single ~ Selection <span className={styles.points}>(100 points)</span>
+      </h2>
       <Select
         asked={capital2}
         choiceGroup={choiceGroup}
@@ -123,30 +159,45 @@ function App() {
         }}
         options={options}
       />
+      <div className={styles["button-block"]}>
+        <button
+          className={styles["check-btn"]}
+          onClick={handleCheck}
+          disabled={gameOver || isDisabled}
+        >
+          Check
+        </button>{" "}
+        {/* Disable button when game is over or round is finished */}
+        
+       
+          <button
+            className={styles["next-round"]}
+            onClick={startNewRound}
+            style={{ visibility: showAnswer && !gameOver ? "visible" : 'hidden' }}
 
-      <button onClick={handleCheck} disabled={gameOver || isDisabled}>Check</button> {/* Disable button when game is over or round is finished */}
-      <h3>Score: {score}</h3>
-      <h4>Round: {round}/5</h4>
+            disabled={gameOver}
+          >
+            Next Round
+          </button>
+        <button onClick={resetGame} className={styles["new-game-button"]}>
+          New Game
+        </button>
+      </div>
 
-      {showAnswer && (
-        <div>
-          <h3>The correct capital was: {correctAnswer}</h3>
-          <button onClick={startNewRound} disabled={gameOver}>Next Round</button>
-        </div>
-      )}
-
+      <h4 className={styles.round}>Round: {round >= 5 ? 5 : round}/5</h4>
+      <h3 className={styles.score}>Score: {score}</h3>
       {gameOver && (
-        <div>
-          <h1>{gameOverMessage}</h1>
-          <h2>Final Score: {score}</h2>
-          <h3>Results</h3>
+        <div className={styles.finish}>
+          <h2>{gameOverMessage}</h2>
+          <h3>Final Score: {score}</h3>
+          {/* <h3>Results</h3>
           <ul>
             {results.map((result) => (
               <li key={result.round}>
                 Round {result.round}: {result.score} points
               </li>
             ))}
-          </ul>
+          </ul> */}
         </div>
       )}
     </>

@@ -46,9 +46,11 @@ function Select({ multiple, asked, onChange, options, choiceGroup }: SelectProps
       const selectedOptions = asked as SelectOption[];
       if (selectedOptions.some((o) => o.capital === option.capital)) {
         onChange(selectedOptions.filter((o) => o.capital !== option.capital));
-      } else if (selectedOptions.length < 3) {
+      } else if (selectedOptions.length < 2 ) {
         onChange([...selectedOptions, option]);
-      }
+      } else if (selectedOptions.length === 2){
+        onChange([option]);
+      } 
     } else {
       onChange(option);
     }
@@ -68,7 +70,7 @@ function Select({ multiple, asked, onChange, options, choiceGroup }: SelectProps
 
   return (
     <div
-      onBlur={() => setIsOpen(false)}
+      // onBlur={() => setIsOpen(false)}
       onClick={() => setIsOpen((prev) => !prev)}
       tabIndex={0}
       className={styles.container}
@@ -76,7 +78,7 @@ function Select({ multiple, asked, onChange, options, choiceGroup }: SelectProps
       <span className={styles.capital}>
         {multiple
           ? (asked as SelectOption[]).length === 0 ? (
-              <span className={styles.placeholder}>Choose more than one</span>
+              <span className={styles.placeholder}>Select two options</span>
             ) : (
               (asked as SelectOption[]).map((c) => (
                 <button
@@ -119,7 +121,7 @@ function Select({ multiple, asked, onChange, options, choiceGroup }: SelectProps
             onClick={(e) => {
               selectOption(option);
               e.stopPropagation();
-              setIsOpen(false);
+              // setIsOpen(false);
             }}
             onMouseEnter={() => setHighlightedIndex(index)}
             onMouseLeave={() => setHighlightedIndex(null)}
