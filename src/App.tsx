@@ -16,6 +16,7 @@ function App() {
   const [gameOverMessage, setGameOverMessage] = useState("");
   const [results, setResults] = useState<{ round: number; score: number }[]>([]);
 
+
   useEffect(() => {
     startNewRound(); // Initialize the first round
   }, []);
@@ -40,6 +41,7 @@ function App() {
     setCapital1([]); // Reset multiple selection
     setCapital2(undefined); // Reset single selection
   }
+  
 
   function handleCheck() {
     if (gameOver) return; // Prevent further actions if the game is over
