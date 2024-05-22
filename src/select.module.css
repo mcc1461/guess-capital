@@ -1,0 +1,259 @@
+root {
+  --bg-color: #f5f5f5;
+  --text-color: #333;
+  --border-color: #777;
+  --highlight-color: hsl(200, 100%, 50%);
+  --highlight-bg-color: hsl(200, 100%, 80%);
+  --highlight-text-color: #333;
+  --highlight-hover-bg-color: hsl(200, 100%, 40%);
+  --highlight-hover-text-color: white;
+  --arrow-color: #777;
+  --arrow-hover-color: #00aaff;
+  --arrow-shadow-color: #00aaff;
+  --clear-color: #777;
+  --clear-hover-color: #333;
+  --clear-shadow-color: #fb0202;
+  --divider-color: #777;
+  --option-bg-color: white;
+  --option-border-color: blueviolet;
+  --option-text-color: darkblue;
+  --option-hover-bg-color: hsl(200, 100%, 80%);
+  --option-highlight-bg-color: hsl(200, 100%, 40%);
+  --option-highlight-text-color: white;
+  --mcc-bg-color: #4e0727;
+  --mcc-text-color: #82c8fc;
+  --mcc-hover-color: #00aaff;
+  --mcc-shadow-color: #00aaff;
+  --color1a: #1e2761;
+  --color1b: #408ec6;
+  --color1c: #7a2048;
+  --color2-teal: #20948b;
+  --color2-light-green: #6ab187;
+  --color3-teal-blue: #1995ad;
+  --color3-light-blue: #a1d6e2;
+  --color3-light-gray: #f1f1f2;
+  --color4-deep-navy-blue: #002c54;
+  --color4-bright-red: #c5001a;
+  --color4-pale-pink: #fdf6f6;
+  --color5-cranberry-red: #f52549;
+  --color5-bubblegum-pink: #fa6775;
+  --color6-petal: #f98866;
+  --color6-poppy: #ff420e;
+  --color6-stem: #80bd9e;
+  --color6-spring: #89da59;
+  --color7-mist: #90afc5;
+  --color7-stone: #336b87;
+  --color7-shadow: #2a3132;
+  --color7-autumn-foliage: #763626;
+  --color8-crevice: #46211a;
+  --color8-cloud-shadow: #693d3d;
+  --color8-desert: #ba5536;
+  --color8-red-clay: #a43820;
+  --color9-thunder-cloud: #505160;
+  --color9-waterfall: #68829e;
+  --color9-moss: #aebd38;
+  --color9-meadow: #598234;
+  --color10-deep-aqua: #003b46;
+  --color10-ocean: #07575b;
+  --color10-wave: #66a5ad;
+  --color10-sea-foam: #c4dfe6;
+  --color11-forest-green: #2e4600;
+  --color11-grass-green: #486b00;
+  --color11-lime: #a2c523;
+  --color11-leaf: #dbe85f;
+  --color11-earth: #7d4427;
+  --color12-blue-black: #021c1e;
+  --color12-cadet-blue: #004445;
+  --color12-rain: #2c7873;
+  --color12-greenery: #6fb98f;
+  --color12-woodland: #f6eddf;
+  --color13-sky: #375e97;
+  --color13-sunset: #fb6542;
+  --color13-sunflower: #ffbb00;
+  --color13-grass: #3f681c;
+  --color13-sunrise: #ffda77;
+  --color13-sun: #f9f871;
+  --color14-blue-pine: #324851;
+  --color14-new-grass: #86ac41;
+  --color14-reflection: #34675c;
+  --color14-mist: #7da3a1;
+  --color14-wood: #e0e4cc;
+  --color15-blue-sky: #4cb5f5;
+  --color15-granite: #b7b8b6;
+  --color15-pine: #34675c;
+  --color15-fields: #b3c100;
+  --color15-sun: #f3ffbf;
+  --color16-overcast: #f1f1f2;
+  --color16-warm-gray: #bcbabe;
+  --color16-ice: #a1d6e2;
+  --color16-glacier-blue: #1995ad;
+  --color17-dark-navy: #011a27;
+  --color17-blueberry: #063852;
+  --color17-tangerine: #f0810f;
+  --color17-daffodil: #e6df44;
+  --color18-eggplant: #50312f;
+  --color18-strawberry: #cb0000;
+  --color18-lemon-lime: #e4ea8c;
+  --color18-basil-green: #3f6c45;
+  --color19-deep-green: #0f1b07;
+  --color19-white: #f2f2f2;
+  --color19-plants: #5c821a;
+  --color19-new-growth: #c6d166;
+  --color20-navy: #00293c;
+  --color20-paeacock-blue: #1e656d;
+  --color20-ivory: #f1f3ce;
+  --color20-candy-apple: #f62a00;
+  --color21-slate: #626d71;
+  --color21-ceramic: #cdcdc0;
+  --color21-latte: #ddbc95;
+  --color21-coffee: #b38867;
+  --color22-aovado: #258039;
+  --color22-yellow-pepper: #f5be41;
+  --color22-aqua-blue: #31a9b8;
+  --color22-tomato: #cf3721;
+  --color23-midnight-blue: #1e1f26;
+  --color23-indigo-ink: #283655;
+  --color23-blueberry: #4d648d;
+  --color23-periwinkle: #d0e1f9;
+  --color24-caviar: #f77604;
+  --color24-avocado: #b8d20b;
+  --color24-salmon: #f56c57;
+  --color24-black-seaweed: #231b12;
+  --color25-emerald: #265c00;
+  --color25-green-bean: #68a225;
+  --color25-light-green: #b3de81;
+  --color25-cotton: #fdffff;
+  --color26-blue-black: #2f2e33;
+  --color26-cool-gray: #d5d6d2;
+  --color26-ice: #f0f0f0;
+  --color26-cobalt: #3a5199;
+  --color27-wood-veener: #756867;
+  --color27-sand-dollar: #d5d6d2;
+  --color27-charcoal: #353c3f;
+  --color27-orange: #ff8d3f;
+  --color28-turguoise: #31a2ac;
+  --color28-lipstick: #af1c1c;
+  --color28-grayish-white: #f0effe;
+  --color28-black: #2f2f28;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif;
+}
+
+.container {
+  margin: 3rem auto;
+  position: relative;
+  width: 41rem;
+  min-height: 1.9rem;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  outline: none;
+  border: 0.25rem solid #777;
+}
+.container:focus,
+.container:hover {
+  border-color: hsl(200, 100%, 50%);
+  border: 0.25rem solid #283655;
+}
+
+.capital {
+  flex-grow: 1;
+  font-size: 1.3rem;
+  font-weight: bold;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.capital span {
+  color: #283655;
+}
+
+.clear-btn {
+  background: none;
+  color: #777;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.75rem;
+  font-weight: bold;
+  height: 1.75rem;
+  width: 1.75rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.clear-btn:hover,
+.clear-btn:focus {
+  color: #283655;
+  box-shadow: 0 0 0 3px #fb0202; /* Use box-shadow instead of outline */
+}
+
+.divider {
+  background-color: #777;
+  align-self: stretch;
+  width: 0.15rem;
+}
+.arrow {
+  color: #777;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-right: 1.5rem;
+}
+.arrow:hover,
+.arrow:focus {
+  color: #283655;
+  box-shadow: 0 0 0 3px #38bdff; /* Use box-shadow instead of outline */
+  cursor: pointer;
+}
+
+.options {
+  margin: 0.25rem auto;
+  padding: 0;
+  list-style: none;
+  display: none;
+  max-height: 13rem;
+  overflow-y: auto;
+  border-radius: 0.25rem;
+  left: -0.25rem;
+  top: calc(100% + 0.25rem);
+  position: absolute;
+  background-color: white;
+  z-index: 99;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border: 0.25rem solid #283655;
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+  width: 41rem;
+}
+.options.show {
+  display: block;
+}
+.option {
+  padding: 0.5rem 0.5rem;
+  cursor: pointer;
+  color: #283655;
+}
+
+.option.selected {
+  background-color: #38bdff;
+}
+.option.highlighted {
+  background-color: #283655;
+  color: #d0e1f9;
+}
+
+.placeholder {
+  color: gray;
+  font-style: italic;
+}
